@@ -42,7 +42,7 @@ public class UsuarioController {
         try{
             return usuarioService.guardarUsuario(catUsuario);
         } catch (Exception e){
-            Logger.info("Error en (UsuarioController) -> guardar usuario" + e.getMessage());
+            Logger.info("Error en (UsuarioController.Clas) -> guardarUsuario" + e.getMessage());
             return new Response(500,Messages.MS500);
         }
     }

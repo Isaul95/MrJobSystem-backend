@@ -21,6 +21,10 @@ public class CatUsuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id_usuario;
+    @Column(name = "id_rol")
+    private Long idRol;
+    @Column(name = "id_negocios")
+    private Long idNegocios;
     @Column(name = "nombre_completo")
     private String nombre_completo;
     @Column(name = "nombre")
@@ -97,6 +101,22 @@ public class CatUsuario implements UserDetails {
 
     public void setId_usuario(Long id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public Long getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Long idRol) {
+        this.idRol = idRol;
+    }
+
+    public Long getIdNegocios() {
+        return idNegocios;
+    }
+
+    public void setIdNegocios(Long idNegocios) {
+        this.idNegocios = idNegocios;
     }
 
     public String getNombre_completo() {

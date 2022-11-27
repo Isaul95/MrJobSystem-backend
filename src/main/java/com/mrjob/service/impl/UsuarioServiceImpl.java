@@ -91,23 +91,35 @@ public class UsuarioServiceImpl implements UsuarioService {
                 if (catUsuarioDTO.getTipoServicioOfrece() == null || catUsuarioDTO.getTipoServicioOfrece().isEmpty() &&
                         catUsuarioDTO.getNombreNegocio() == null || catUsuarioDTO.getNombreNegocio().isEmpty()) {
                     //JOBERS_(clientes)
-                    rol.setIdRol(1L);
+                  // rol.setIdRol(1L);
+                    user.setIdRol(1L); /** ----------- Isaul agregando ir rol en la tabla de usuarios...........*/
                 }else{
                     Logger.info("El usuario es JOB_2022...!");
 
                     CatServicios servicios = new CatServicios();
                         servicios.setNombre_servicio(catUsuarioDTO.getTipoServicioOfrece());
-                        servicios.setDescripcion("Descripcion del servicio...");
+                        servicios.setDescripcion("TEST CODE.......Descripcion");
                         serv = catServiciosRepository.save(servicios);
 
                     CatNegocios negocio = new CatNegocios();
+                        negocio.setIdServicios(serv.getId_servicio()); /** ----------- Isaul agregando ir negocio en la tabla de usuarios...........*/
                         negocio.setNombre(catUsuarioDTO.getNombreNegocio());
-                        negocio.setDomicilio("Iguala");
-                        negocio.setDescripcion("Descricpcion del negocio...");
+                        negocio.setDomicilio("TEST CODE.......Domicilio");
+                        negocio.setDescripcion("TEST CODE.....Descripcion");
                         negoc = catNegociosRepository.save(negocio);
 
                     // JOB_(Prestador de servicio)
-                    rol.setIdRol(2L);
+                    // rol.setIdRol(2L);
+                      user.setIdRol(2L);
+
+
+                    /* Usuario to nname de su negocios */
+                /*usuarioNegocio.setUsuario(user);
+                usuarioNegocio.setNegocio(negoc);
+                    Set<UsuarioNegocios> usuarioNegoc = new HashSet<>();
+                    usuarioNegoc.add(usuarioNegocio);*/
+
+                    user.setIdNegocios(negoc.getId()); /** ----------- Isaul agregando ir negocio en la tabla de usuarios...........*/
                 }
                 //user.setId_usuario(catUsuarioDTO.getId_usuario());
                 user.setNombre(catUsuarioDTO.getNombre());
@@ -119,30 +131,25 @@ public class UsuarioServiceImpl implements UsuarioService {
                 user.setUsername(catUsuarioDTO.getUsername());
 
                 /* Usuario to rol */
-                usuarioRol.setUsuario(user);
+                /*usuarioRol.setUsuario(user);
                 usuarioRol.setRol(rol);
                     Set<UsuarioRol> usuarioRoles = new HashSet<>();
-                    usuarioRoles.add(usuarioRol);
+                    usuarioRoles.add(usuarioRol);*/
 
                 /* Usuario to servicios que ofrecen */
-                usuarioService.setUsuario(user);
+                /*usuarioService.setUsuario(user);
                 usuarioService.setServicio(serv);
                     Set<UsuarioServicios> usuarioServic = new HashSet<>();
-                    usuarioServic.add(usuarioService);
+                    usuarioServic.add(usuarioService);*/
 
-                /* Usuario to nname de su negocios */
-                usuarioNegocio.setUsuario(user);
-                usuarioNegocio.setNegocio(negoc);
-                    Set<UsuarioNegocios> usuarioNegoc = new HashSet<>();
-                    usuarioNegoc.add(usuarioNegocio);
 
                 // Encriptamos la contraseña que trae del front el obj -> usuarioEntity
                 user.setPassword(this.bCryptPasswordEncoder.encode(catUsuarioDTO.getPassword()));
                 user.setNombre_completo(catUsuarioDTO.getNombre()+" "+catUsuarioDTO.getPrimer_apellido()+" "+catUsuarioDTO.getSegundo_apellido());
 
-                user.getUsuarioRoles().addAll(usuarioRoles);
-                user.getUsuarioServicios().addAll(usuarioServic);
-                user.getUsuarioNegocios().addAll(usuarioNegoc);
+                //user.getUsuarioRoles().addAll(usuarioRoles);
+                //user.getUsuarioServicios().addAll(usuarioServic);
+                //user.getUsuarioNegocios().addAll(usuarioNegoc);
                 existeUsuario = catUsuarioRepository.save(user);
 
                 Logger.info("Usuario guardado exitosamente...!");
@@ -152,7 +159,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         } catch (Exception e){
             response.setCode(500);
             response.setDescripcion(Messages.MSERROR_GUARDAR_USER);
-            Logger.error("Error en (UsuarioServiceImpl) -> guardarUsuario");
+            Logger.error("Error en (UsuarioServiceImpl.Clas) -> guardarUsuario");
         }
         return response;
     }

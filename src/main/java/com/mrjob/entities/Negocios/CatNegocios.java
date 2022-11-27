@@ -12,6 +12,8 @@ public class CatNegocios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "id_servicios")
+    private Long idServicios;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "domicilio")
@@ -28,6 +30,14 @@ public class CatNegocios {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdServicios() {
+        return idServicios;
+    }
+
+    public void setIdServicios(Long idServicios) {
+        this.idServicios = idServicios;
     }
 
     public String getNombre() {
